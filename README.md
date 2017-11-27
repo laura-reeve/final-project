@@ -1,4 +1,6 @@
-# final-project
+## final-project
+
+``` bash
 
 # how to set up the development environment
 # install the Vue Command Line Interface globally
