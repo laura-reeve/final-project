@@ -1,20 +1,19 @@
 <template>
   <div class="movieSearch">
-    <p>Movies for your Mood</p>
+    <h1>Movies for your Mood</h1>
       <p>This is a movie list based on {{query}}</p>
       <form v-on:submit.prevent="getMovieList">
         <p>I'm feeling like...<input type="text" v-model.lazy="query" placeholder="something"><button type="submit">Go</button></p>
       </form>
-      <ul v-if="results && results.length > 0">
-       <li v-for="result in results">
-         <p>{{results.title}}</p>
-       </li>
+      <router-link to="/weather">Try out the Weather Search</router-link>
+      <ul class="movies">
+        <li v-for="movie in results.results">
+          <h2>{{movie.title}}</h2>
+          <p>{{movie.overview}}</p>
+          <p><img v-bind:src="'//image.tmdb.org/t/p/w150_and_h225_bestv2'+ movie.poster_path" v-bind:alt="movie.title + 'Poster'" class="poster-image"></p>
+        </li>
       </ul>
-    <div v-else-if="results && results.length==0">
-      <p>No results!</p>
-      <p>Please chose another word.</p>
-    </div>
-    <ul v-if="errors && errors.length > 0">
+    <ul class="errors" v-if="errors && errors.length > 0">
       <li v-for="error of errors">
         {{error.message}}
       </li>
@@ -29,7 +28,7 @@ export default {
   name: 'MovieSearch',
   data () {
     return {
-      results: null,
+      results: [],
       errors: [],
       query: '',
     }
@@ -37,14 +36,15 @@ export default {
   methods: {
     getMovieList: function () {
       // API call
-      console.log("Making API call...");
+      console.log('Making API call...');
   
-      axios.get("https://api.themoviedb.org/3/search/movie", {
+      axios.get('//api.themoviedb.org/3/search/movie', {
         params: {
-          api_key: "a6b89216122d3b45b558a0ac03d25d80",
-          language: "en_US",
+          api_key: 'a6b89216122d3b45b558a0ac03d25d80',
+          language: 'en_US',
           query: this.query,
-          page: 1
+          page: 1,
+          adult: false
         }
       })
       .then(response => {
@@ -60,6 +60,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+ul.movies {
+  list-style-type: none;
+}
+
+.movies li {
+  border: 1px solid black;
+}
+.poster-image {
+  text-align: left;
+}
 
 ul.errors {
   list-style-type: none;

@@ -31,6 +31,7 @@ npm run dev
 
 # make any customizations to the projects that you desire
 npm install --save axios
+npm install vue-ls --save
 
 # be sure to use debugging tools (like the Sources tab in the Chrome development tools) to test and debug your code in the local environment
 
@@ -64,6 +65,8 @@ npm run build
 -click Save
 -click on the website link provided to view your Vue app webpage!
 
+
+---------------------------------------------
 > A Vue.js project
 
 ## Build Setup
