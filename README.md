@@ -30,8 +30,15 @@ npm run dev
 # dependencies can be located in the newly created node_modules folder
 
 # make any customizations to the projects that you desire
+# this project has already installed the following:
+# Axios (API calls)
 npm install --save axios
+# Vue Local Storage (data caching)
 npm install vue-ls --save
+# Bootstrap (CSS formatting)
+npm i bootstrap-vue bootstrap@4.0.0-beta.2
+# (Bootstrap requires the following command)
+npm install --save-dev style-loader css-loader
 
 # be sure to use debugging tools (like the Sources tab in the Chrome development tools) to test and debug your code in the local environment
 

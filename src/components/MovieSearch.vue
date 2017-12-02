@@ -1,11 +1,11 @@
 <template>
-  <div class="movieSearch">
+  <div class="container">
     <h1>Movies for your Mood</h1>
       <p>This is a movie list based on {{query}}</p>
       <form v-on:submit.prevent="getMovieList">
-        <p>I'm feeling like...<input type="text" v-model.lazy="query" placeholder="something"><button type="submit">Go</button></p>
+        <p>I'm feeling like...<input type="text" v-model.lazy="query" placeholder="something"><button class="btn btn-success" type="submit">Go</button></p>
       </form>
-      <router-link to="/weather">Try out the Weather Search</router-link>
+      <router-link to="/">Go back to Weather and a Movie Search</router-link>
       <ul class="movies">
         <li v-for="movie in results.results">
           <h2>{{movie.title}}</h2>
@@ -35,9 +35,17 @@ export default {
   },
   methods: {
     getMovieList: function () {
-      // API call
-      console.log('Making API call...');
-  
+      let cacheLable = ' movieSearch_' + this.query;
+      let cacheExpiry = 15 * 60 * 1000; // 15 minutes 
+
+      // If there is a cached query, use that insetad of an API request
+      if(this.$ls.get(cacheLable)) {
+        console.log('Cached query detected.');
+        this.results = this.$ls.get(cacheLable);
+      } 
+      // If not, make the API request...
+      else {
+      console.log('No cached query detected. Making API request.');
       axios.get('//api.themoviedb.org/3/search/movie', {
         params: {
           api_key: 'a6b89216122d3b45b558a0ac03d25d80',
@@ -47,12 +55,16 @@ export default {
           adult: false
         }
       })
+      // ... and then cache the value for the amount of time specified in cacheExpiry
       .then(response => {
+        this.$ls.set(cacheLable, response.data, cacheExpiry);
+        console.log('New query has been cached as' + cacheLable);
         this.results = response.data;
       })
       .catch(error => {
         this.errors.push(error);
       })
+      }
     }
   }
 }
@@ -70,15 +82,5 @@ ul.movies {
 }
 .poster-image {
   text-align: left;
-}
-
-ul.errors {
-  list-style-type: none;
-}
-.errors li {
-  border: 1px solid red;
-  color: red;
-  padding: 0.5rem;
-  margin: 10px 0;
 }
 </style>
