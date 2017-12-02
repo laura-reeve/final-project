@@ -30,6 +30,7 @@ npm run dev
 # dependencies can be located in the newly created node_modules folder
 
 # make any customizations to the projects that you desire
+
 # this project has already installed the following:
 # Axios (API calls)
 npm install --save axios

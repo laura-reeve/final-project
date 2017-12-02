@@ -1,14 +1,21 @@
 <template>
   <div class="container">
     <h1>Movies for your Mood</h1>
-      <p>This is a movie list based on {{query}}</p>
+      <p>This is a movie list based on <span class="query">{{query}}</span></p>
       <form v-on:submit.prevent="getMovieList">
-        <p>I'm feeling like...<input type="text" v-model.lazy="query" placeholder="something"><button class="btn btn-success" type="submit">Go</button></p>
+        <div class="form-row">
+          <div class="col-sm-3 offset-sm-4">
+          <input type="text" class="form-control" v-model.lazy="query" id="movieSearch" placeholder="something">
+          </div>
+          <div class="col-sm-1">
+          <button class="btn btn-success" type="submit">Search</button>
+          </div>
+        </div>
       </form>
-      <router-link to="/">Go back to Weather and a Movie Search</router-link>
+      <p class="router"><router-link to="/">Go back to Weather and a Movie Search</router-link></p>
       <ul class="movies">
         <li v-for="movie in results.results">
-          <h2>{{movie.title}}</h2>
+          <h2><a class="movieLink" v-bind:href="'https://www.themoviedb.org/movie/'+movie.id" target="_blank">{{movie.title}}</a></h2>
           <p>{{movie.overview}}</p>
           <p><img v-bind:src="'//image.tmdb.org/t/p/w150_and_h225_bestv2'+ movie.poster_path" v-bind:alt="movie.title + 'Poster'" class="poster-image"></p>
         </li>
@@ -70,17 +77,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-ul.movies {
-  list-style-type: none;
-}
-
-.movies li {
-  border: 1px solid black;
-}
-.poster-image {
-  text-align: left;
-}
+<style>
+/* All styles are global - stored in App.vue */
 </style>

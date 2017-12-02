@@ -1,10 +1,16 @@
 <template>
   <div class="container">
     <h1>Weather and a Movie Search</h1>
-    <p>What's it like outside?</p>
-    <p>Enter in your city to find out: {{query}}</p>
+    <p>What's it like outside? Enter in your <strong>city</strong> to find out: <span class="query">{{query}}</span></p>
     <form v-on:submit.prevent="getWeather">
-      <p>City: <input type="text" v-model.lazy="query" placeholder="Seattle"><button class="btn btn-success" type="submit">Go</button></p>
+      <div class="form-row">
+        <div class="col-sm-3 offset-sm-4">
+          <input type="text" class="form-control" v-model.lazy="query" placeholder="Seattle">
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-success" type="submit">Submit</button></p>
+        </div>
+      </div>
     </form>
 
     <!-- weather description -->
@@ -22,12 +28,12 @@
     </ul>
     <p>Want to find something to watch?  Click the button to search for movies based on current weather conditions.</p>
     <button class="btn btn-primary" v-on:click="getMovies">Weather and a Movie Search</button>
-    <p><router-link to="/movies">Not feeling it? Click here to search for more movies!</router-link></p>
+    <p class="router"><router-link to="/movies">Not feeling it? Click here to search for more movies!</router-link></p>
 
     <!-- movie list -->
     <ul class="movies">
       <li v-for="movie in movies.results">
-        <h2>{{movie.title}}</h2>
+        <h2><a class="movieLink" v-bind:href="'https://www.themoviedb.org/movie/'+movie.id" target="_blank">{{movie.title}}</a></h2>
         <p>{{movie.overview}}</p>
         <p><img v-bind:src="'//image.tmdb.org/t/p/w150_and_h225_bestv2'+ movie.poster_path" v-bind:alt="movie.title + 'Poster'" class="poster-image"></p>
       </li>
@@ -109,14 +115,5 @@ export default {
 </script>
 
 <style>
-ul {
-  list-style-type: none;
-}
-
-.movies li {
-  border: 1px solid black;
-}
-.poster-image {
-  text-align: left;
-}
+/* All styles are global - stored in App.vue */
 </style>

@@ -21,10 +21,33 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
-
+body {
+  background-color: #383838;
+  color: white;
+}
+.query {
+  font-weight: bold;
+  color: #5cb85c;
+}
+.movieLink {
+  color: black;
+}
+.router {
+  margin-top: 20px;
+}
+ul {
+  list-style-type: none;
+}
+.movies li {
+  border: 1px solid black;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  color: black;
+}
 ul.errors {
   list-style-type: none;
 }
