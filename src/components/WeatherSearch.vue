@@ -21,28 +21,22 @@
       </li>
     </ul>
 
-    <ul class="errors" v-if="errors && errors.length > 0">
-      <li v-for="error of errors">
-        {{error.message}}
-      </li>
-    </ul>
+    <!-- ErrorList child component -->
+    <error-list v-bind:errorList="errors"></error-list>
+ 
     <p>Want to find something to watch?  Click the button to search for movies based on current weather conditions.</p>
     <button class="btn btn-primary" v-on:click="getMovies">Weather and a Movie Search</button>
     <p class="router"><router-link to="/movies">Not feeling it? Click here to search for more movies!</router-link></p>
 
-    <!-- movie list -->
-    <ul class="movies">
-      <li v-for="movie in movies.results">
-        <h2><a class="movieLink" v-bind:href="'https://www.themoviedb.org/movie/'+movie.id" target="_blank">{{movie.title}}</a></h2>
-        <p>{{movie.overview}}</p>
-        <p><img v-bind:src="'//image.tmdb.org/t/p/w150_and_h225_bestv2'+ movie.poster_path" v-bind:alt="movie.title + 'Poster'" class="poster-image"></p>
-      </li>
-    </ul>
+    <!-- MovieList child component -->
+      <movie-list v-bind:movieData="movies.results"></movie-list>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import MovieList from '@/components/MovieList';
+import ErrorList from '@/components/ErrorList';
 
 export default {
   name: 'WeatherSearch',
@@ -110,7 +104,11 @@ export default {
         this.errors.push(error);
       })
     }
-  }
+  },
+  components: {
+      'movie-list': MovieList,
+      'error-list': ErrorList
+    }
 }
 </script>
 

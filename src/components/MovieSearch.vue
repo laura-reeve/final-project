@@ -13,23 +13,19 @@
         </div>
       </form>
       <p class="router"><router-link to="/">Go back to Weather and a Movie Search</router-link></p>
-      <ul class="movies">
-        <li v-for="movie in results.results">
-          <h2><a class="movieLink" v-bind:href="'https://www.themoviedb.org/movie/'+movie.id" target="_blank">{{movie.title}}</a></h2>
-          <p>{{movie.overview}}</p>
-          <p><img v-bind:src="'//image.tmdb.org/t/p/w150_and_h225_bestv2'+ movie.poster_path" v-bind:alt="movie.title + 'Poster'" class="poster-image"></p>
-        </li>
-      </ul>
-    <ul class="errors" v-if="errors && errors.length > 0">
-      <li v-for="error of errors">
-        {{error.message}}
-      </li>
-    </ul>
+      
+      <!-- MovieList child component -->
+      <movie-list v-bind:movieData="results.results"></movie-list>
+
+    <!-- ErrorList child component -->
+    <error-list v-bind:errorList="errors"></error-list>
   </div>      
 </template>
 
 <script>
 import axios from 'axios';
+import MovieList from '@/components/MovieList';
+import ErrorList from '@/components/ErrorList';
 
 export default {
   name: 'MovieSearch',
@@ -73,7 +69,11 @@ export default {
       })
       }
     }
-  }
+  },
+  components: {
+      'movie-list': MovieList,
+      'error-list': ErrorList
+    }
 }
 </script>
 
