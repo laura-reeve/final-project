@@ -40,21 +40,4 @@ body {
 ul {
   list-style-type: none;
 }
-.movies li {
-  border: 1px solid black;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: whitesmoke;
-  color: black;
-}
-ul.errors {
-  list-style-type: none;
-}
-.errors li {
-  border: 1px solid red;
-  color: red;
-  padding: 0.5rem;
-  margin: 10px 0;
-}
 </style>
